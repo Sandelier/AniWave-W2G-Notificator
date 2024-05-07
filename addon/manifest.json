@@ -1,0 +1,17 @@
+{
+  "description": "Simple extension that adds message notifications in aniwave when you are in fullscreen mode.",
+  "manifest_version": 2,
+  "name": "AniWave-W2G-Notifications",
+  "version": "1.0.0",
+  "icons": {
+    "96": "icon/icon.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["https://aniwave.to/watch2gether/room/*"],
+      "js": ["contentScript.js"],
+      "css": ["styles.css"]
+    }
+  ]
+}
