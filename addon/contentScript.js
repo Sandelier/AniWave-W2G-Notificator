@@ -1,4 +1,7 @@
+
+
 const target = document.querySelector('.scroll');
+let isFullscreen = false;
 
 // Detects the messages.
 new MutationObserver(mutations => {
@@ -9,9 +12,27 @@ new MutationObserver(mutations => {
                     const text = node.querySelector('.msg-body .text').textContent.trim();
                     const user = node.querySelector('.msg-body .user').textContent.trim();
 
-                    if (isFullscreen == true) {
-                        addNotificationIcon(text, user);
-                    }
+					// Video player gets replaced dynamically by the site when you switch to an new episode so we always need to check if it has been removed.
+                    if (!document.body.contains(videoPlayer)) {
+						waitForVideoPlayer();
+
+						notificationDivs.forEach((div, index) => {
+							div.parentNode.removeChild(div);
+						});
+						notificationDivs = [];
+				
+						if (notificationTimer) {
+							clearInterval(notificationTimer);
+							notificationTimer = null;
+						}
+
+					}
+
+					isFullscreen = videoPlayer.offsetWidth === window.innerWidth && videoPlayer.offsetHeight === window.innerHeight;
+
+					if (isFullscreen == true) {
+						addNotificationIcon(text, user);
+					}
 
                 }
             });
@@ -121,47 +142,19 @@ function removeNotificationDiv(notifDiv) {
 }
 
 
-let isFullscreen = false;
-
-// Video player detection stuff.
-function handleFullscreenChange() {
-	isFullscreen = videoPlayer.offsetWidth === window.innerWidth && videoPlayer.offsetHeight === window.innerHeight;
-
-	if (!isFullscreen) {
-		notificationDivs.forEach((div, index) => {
-			div.parentNode.removeChild(div);
-		});
-		notificationDivs = [];
-
-		if (notificationTimer) {
-			clearInterval(notificationTimer);
-			notificationTimer = null;
-		}
-	}
-}
-
-
 // We cant put videoplayer immediately since it wont be on the page onload
 let videoPlayer;
-
-document.addEventListener("fullscreenchange", handleFullscreenChange);
-document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
-
 
 
 function wait(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
-
+  
 async function waitForVideoPlayer() {
-	// honestly i dont have any idea why i need to have infinite loop on this.
-	// I tried everything that came to mind to not use any infintie loops but nope even if i set the videoplayer on each message it dosent work it will still break when switching episodes.
-	// And its an ass to debug it since aniwave uses the disable-devtools library :/
-	while (true) {
-		videoPlayer = document.querySelector('video');
-
-		await wait(500);
-	}
+  while (!document.body.contains(videoPlayer)) {
+	videoPlayer = document.querySelector('video');
+	await wait(500); 
+  }
 }
 
 waitForVideoPlayer();
