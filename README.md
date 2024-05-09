@@ -1,3 +1,4 @@
+
 # AniWave-W2G-Notificator
 AniWave-W2G-Notificator is a simple browser extension that adds message notifications in AniWave when you are in fullscreen mode.
 
