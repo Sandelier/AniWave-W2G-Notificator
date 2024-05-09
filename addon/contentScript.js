@@ -5,22 +5,22 @@ let isFullscreen = false;
 
 // Detects the messages.
 new MutationObserver(mutations => {
-    for (const mutation of mutations) {
-        if (mutation.type === 'childList') {
-            mutation.addedNodes.forEach(node => {
-                if (node.classList && node.classList.contains('message')) {
-                    const text = node.querySelector('.msg-body .text').textContent.trim();
-                    const user = node.querySelector('.msg-body .user').textContent.trim();
+	for (const mutation of mutations) {
+		if (mutation.type === 'childList') {
+			mutation.addedNodes.forEach(node => {
+				if (node.classList && node.classList.contains('message')) {
+					const text = node.querySelector('.msg-body .text').textContent.trim();
+					const user = node.querySelector('.msg-body .user').textContent.trim();
 
 					// Video player gets replaced dynamically by the site when you switch to an new episode so we always need to check if it has been removed.
-                    if (!document.body.contains(videoPlayer)) {
+					if (!document.body.contains(videoPlayer)) {
 						waitForVideoPlayer();
 
 						notificationDivs.forEach((div, index) => {
 							div.parentNode.removeChild(div);
 						});
 						notificationDivs = [];
-				
+
 						if (notificationTimer) {
 							clearInterval(notificationTimer);
 							notificationTimer = null;
@@ -34,12 +34,12 @@ new MutationObserver(mutations => {
 						addNotificationIcon(text, user);
 					}
 
-                }
-            });
-        }
-    }
+				}
+			});
+		}
+	}
 }).observe(target, {
-    childList: true
+	childList: true
 });
 
 // Notification element stuff.
@@ -73,7 +73,7 @@ async function addNotificationIcon(text, user) {
 
 	const usermessage = document.createElement("p");
 	usermessage.innerText = text;
-	
+
 
 	notificationDiv.appendChild(username);
 	notificationDiv.appendChild(usermessage);
@@ -149,12 +149,12 @@ let videoPlayer;
 function wait(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
-  
+
 async function waitForVideoPlayer() {
-  while (!document.body.contains(videoPlayer)) {
-	videoPlayer = document.querySelector('video');
-	await wait(500); 
-  }
+	while (!document.body.contains(videoPlayer)) {
+		videoPlayer = document.querySelector('video');
+		await wait(500);
+	}
 }
 
 waitForVideoPlayer();
