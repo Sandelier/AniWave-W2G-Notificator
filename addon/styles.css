@@ -6,7 +6,7 @@
     font-size: 1rem;
 
     width: 300px;
-    height: 80px;
+    min-height: 80px;
 
     background: rgba(0, 0, 0, 0.5);
 
@@ -20,11 +20,60 @@
     justify-content: center;
 
     color: white;
+    max-height: 80px;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.notification:hover {
+    max-height: 100%;
+    background-color: black;
+    z-index: 9999;
 }
 
 .notification p {
     margin: 0;
-    overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+}
+
+.notification:hover p {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    word-wrap: break-word;
+}
+
+
+/* Messaging */
+
+#messageFieldContainer {
+    position: absolute;
+    bottom: 100px;
+    right: 10px;
+    width: 300px;
+}
+
+#notification-messageInput {
+    width: 238px;
+    position: relative;
+    padding: 5px;
+    border: solid 1px #6735ae;
+    background-color: #242424;
+    color: white;
+    border-radius: 3px 0 0 3px; 
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.1s ease;
+    height: 40px;
+}
+
+#messageSendBtn {
+    border-radius: 0 5px 5px 0px !important;
+    height: 40px;
+    opacity: 1;
+    transition: opacity 0.1s ease;
 }

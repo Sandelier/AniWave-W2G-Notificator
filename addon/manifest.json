@@ -1,8 +1,8 @@
 {
   "description": "Simple extension that adds message notifications in aniwave when you are in fullscreen mode.",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "AniWave-W2G-Notifications",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "icons": {
     "96": "icon/icon.png"
   },
@@ -13,5 +13,12 @@
       "js": ["contentScript.js"],
       "css": ["styles.css"]
     }
-  ]
+  ],
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{45a24d94-be5f-4d6e-8bf8-0473d9531635}",
+      "strict_min_version": "129.0"
+    }
+  }
 }
