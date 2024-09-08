@@ -1,3 +1,5 @@
+# Archived
+Repository has been archived because AniWave was shut down.
 
 # AniWave-W2G-Notificator
 AniWave-W2G-Notificator is a simple browser extension that adds message notifications in AniWave.
